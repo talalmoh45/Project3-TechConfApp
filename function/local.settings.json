@@ -1,0 +1,6 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "notificationqueue1_SERVICEBUS": "Endpoint=sb://notificationqueue1.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=igHMKzEoRI3qsbr93/WqL0+vgZgmhXwcwz8FaBU6x5o="
+  }
+}
