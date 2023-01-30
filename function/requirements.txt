@@ -3,3 +3,6 @@
 # Manually managing azure-functions-worker may cause unexpected issues
 
 azure-functions
+psycopg2==2.8.5
+psycopg2-binary==2.8.6
+sendgrid==6.3.0

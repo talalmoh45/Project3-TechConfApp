@@ -14,29 +14,30 @@ def main(msg: func.ServiceBusMessage):
     # TODO: Get connection to database
     connection = psycopg2.connect(
         dbname ='techconfdb',
-        user = 'talaladmin',
+        user = 'taloo',
         password = '0541431847Aa',
-        host = 'tecno-server.postgres.database.azure.com'
+        host = 'techconfserver.postgres.database.azure.com'
     )
 
     cursor = connection.cursor()
 
     try:
         # TODO: Get notification message and subject from database using the notification_id
-        cursor.execute('SELECT message, subject FROM notification WHERE id={};'.format(notification_id))
-        result = cursor.fetchall()
-        subject, message = result[0][0], result[0][1]
+        cursor.execute("SELECT message, subject FROM notification where id = {};".format(notification_id))
+        notification = cursor.fetchone()
+        subject, body = notification[0][0], notification[0][1]
+
         # TODO: Get attendees email and name
-        cursor.execute('SELECT email, name FROM attendees;')
-        att = cursor.fetchall()
+        cursor.execute("SELECT email, first_name, last_name FROM attendee;")
+        attendees = cursor.fetchall()
 
         # TODO: Loop through each attendee and send an email with a personalized subject
-        for (email, first_name) in att:
+        for (email, first_name) in attendees:
             mail = Mail(
                 from_email = 'talal.moh45@hotmail.com',
                 to_emails = email,
-                subjet = subject,
-                content = Content("text/plain", "Hello this is TechConf Reminder")
+                subject = subject,
+                plain_text_content = "Hello this is TechConf Reminder"
             )
 
         try:
@@ -45,14 +46,17 @@ def main(msg: func.ServiceBusMessage):
             sendgrid = SendGridAPIClient(SENDGRID_API_KEY)
             sendgrid.send(mail)
             
-        except error:
-            logging.error('cannot send email')
-
-
-        status = "Notified {} attendees".format(len(att))
+        except Exception as e:
+            logging.error('cannot send email', e)
 
         # TODO: Update the notification table by setting the completed date and updating the status with the total number of attendees notified
-        cursor.execute("UPDATE notification SET status = '{}', completed_date = '{}' WHERE id = {};".format(status, datetime.utcnow(), notification_id))
+
+        status = "Notified {} attendees".format(len(attendees))
+        completed_date = datetime.utcnow()
+
+        cursor.execute("Update notification set status = {}, completed_date = {} where id = {};".format(status, completed_date, notification_id))
+        connection.commit()
+
     except (Exception, psycopg2.DatabaseError) as error:
         logging.error(error)
         connection.rollback()

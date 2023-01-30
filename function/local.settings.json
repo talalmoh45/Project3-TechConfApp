@@ -1,6 +1,9 @@
 {
   "IsEncrypted": false,
   "Values": {
-    "notificationqueue1_SERVICEBUS": "Endpoint=sb://notificationqueue1.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=igHMKzEoRI3qsbr93/WqL0+vgZgmhXwcwz8FaBU6x5o="
+    "notificationqueue1_SERVICEBUS": "Endpoint=sb://notificationqueue1.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=igHMKzEoRI3qsbr93/WqL0+vgZgmhXwcwz8FaBU6x5o=",
+    "notificationqueue_SERVICEBUS": "Endpoint=sb://notificationqueue.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=jRXqTx4bZOBGIPQHnizpq8nM02h3R3X3wO/iQMgk/Ic=",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=proj3resourcegroupae4b;AccountKey=DhDgyHpxjeigQk/Wu35QyYGmwcWQ/Tj9//ROEFR5+eDodYgpwAWI71p3RJfLOtkrQhOzbxfCgqaV+AStCIFcAQ==;EndpointSuffix=core.windows.net"
   }
 }
